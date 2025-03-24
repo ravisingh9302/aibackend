@@ -8,4 +8,4 @@ router.post('/next', PublicController.nextQuestion);
 router.post('/extract-resume', PublicController.extractResume);
 
 
-export const PublicRouter = router;
+export const InterviewRouter = router;
