@@ -1,13 +1,11 @@
 import express from 'express';
-
+import { PublicController } from './interview.controllers';
 const router = express.Router();
 
 // Public routes
-// router.get('/testseries', PublicController.getAllTestSeries);
-// router.get('/testseries/:id', PublicController.getTestSeriesDetails);
-// router.post('/logout', PublicController.logout);
-// router.get('/me', authenticate, PublicController.getLoginUserDetails);
-
+router.post('/start', PublicController.startInterview);
+router.post('/next', PublicController.nextQuestion);
+router.post('/extract-resume', PublicController.extractResume);
 
 
 export const PublicRouter = router;

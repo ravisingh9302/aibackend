@@ -7,6 +7,7 @@ import { createDbConnection } from './config/dbconfig';
 import { errorMiddleware, CustomError } from './middlewares/errorHandler';
 import path from 'path';
 import router from './routes/routes';
+import assemblyRouter from './routes/assemblyRoutes';
 
 
 
@@ -52,7 +53,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1', router)
-
+app.use("/api/v1/assembly", assemblyRouter);
 
 // 404 Not Found Middleware
 app.use((req, res, next) => {
