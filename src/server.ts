@@ -16,17 +16,17 @@ const app = express();
 const PORT = process.env.SERVER_PORT || 5000;
 
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
-const corsOptions = {
-  origin: (origin: string | undefined, callback: any) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-};
+// const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
+// const corsOptions = {
+//   origin: (origin: string | undefined, callback: any) => {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+// };
 
 const corsOptions = {
   origin: "*",
@@ -35,7 +35,17 @@ const corsOptions = {
 
 
 // Middleware
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Allow only frontend origin
+    credentials: true, // Allow cookies & authentication headers
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
+
+// app.use(cors(corsOptions));
 app.use(compression()); // Use compression for gzip compression
 app.use(cookieParser()); // Use cookie-parser for parsing cookies
 app.use(express.json());
