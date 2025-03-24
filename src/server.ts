@@ -13,7 +13,7 @@ import assemblyRouter from './routes/assemblyRoutes';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.SERVER_PORT || 4000;
+const PORT = process.env.SERVER_PORT || 5000;
 
 
 // const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
