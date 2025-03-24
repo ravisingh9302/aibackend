@@ -44,6 +44,7 @@ export const extractResumeInside = async (pdfBuffer: Buffer): Promise<any> => {
         // Extract text from the PDF
         const pdfData = await pdfParse(pdfBuffer);
         const extractedText = pdfData.text;
+        console.log("extractedText", extractedText);
 
         const prompt = `
       You are an AI assistant that extracts structured details from resumes.
