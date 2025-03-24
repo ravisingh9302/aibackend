@@ -51,8 +51,11 @@ const nextQuestion = asyncHandler(async (req: Request, res: Response) => {
 
 
 const extractResume = asyncHandler(async (req: Request, res: Response) => {
+  console.log("hello")
   try {
     const { companyType, role } = req.body;
+    console.log(req.file);
+    console.log(req.body);
     const resume = req.file; // Assuming you're using a middleware like multer to handle file uploads
 
     if (!resume) {
