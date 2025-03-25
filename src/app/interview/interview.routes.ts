@@ -7,7 +7,8 @@ const router = express.Router();
 
 // Public routes
 router.post('/start', PublicController.startInterview);
-router.post('/next', PublicController.nextQuestion);
+router.post('/start', PublicController.startInterview);
+router.post('/text-to-speech', PublicController.textTospeech);
 router.post('/extract-resume', upload.single('resume'), PublicController.extractResume);
 
 

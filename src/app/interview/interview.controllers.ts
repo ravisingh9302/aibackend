@@ -1,6 +1,6 @@
 import prisma from '../../config/dbconfig';
 import { Request, Response } from 'express';
-
+import axios from "axios";
 import asyncHandler from '../../utils/asyncHandler';
 import { CustomError } from '../../middlewares/errorHandler';
 import { sendResponse } from '../../utils/sendResponse';
@@ -49,17 +49,54 @@ const nextQuestion = asyncHandler(async (req: Request, res: Response) => {
     throw new CustomError('Failed to get next question', 500);
   }
 });
+const textTospeech = asyncHandler(async (req: Request, res: Response) => {
+  try {
+    const { text } = req.body;
+    console.log("text", text);
+    // const question = await mockinterview(companyType, role, history);
+
+    const data = JSON.stringify({
+      "text": text,
+      "voiceId": "en-US-natalie"
+    });
 
 
-const extractResume = asyncHandler(async (req:MulterRequest, res: Response) => {
+    let config = {
+      method: 'post',
+      url: 'https://api.murf.ai/v1/speech/generate',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'api-key': 'ap2_09024d6d-dd09-4112-9108-36c7b3c2ec66'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        sendResponse(res, 200, 'text to speech', response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  
+  } catch (error) {
+    throw new CustomError('Failed to get next question', 500);
+  }
+});
+
+
+const extractResume = asyncHandler(async (req: MulterRequest, res: Response) => {
   console.log("hello")
   try {
 
     const { companyType, role } = req.body
-   
+
     console.log("fasfafas:::", req.body);
     console.log("fasfafas:::", req.file);
-    
+
     const resume = req.file; // Assuming you're using a middleware like multer to handle file uploads
 
     if (!resume) {
@@ -80,5 +117,6 @@ const extractResume = asyncHandler(async (req:MulterRequest, res: Response) => {
 export const PublicController = {
   startInterview,
   nextQuestion,
-  extractResume
+  extractResume,
+  textTospeech
 };
