@@ -6,8 +6,6 @@ const router = express.Router();
 
 
 // Public routes
-router.post('/start', PublicController.startInterview);
-router.post('/next', PublicController.nextQuestion);
 router.post('/extract-resume', upload.single('resume'), PublicController.extractResume);
 
 
