@@ -4,7 +4,7 @@ import axios from "axios";
 import asyncHandler from '../../utils/asyncHandler';
 import { CustomError } from '../../middlewares/errorHandler';
 import { sendResponse } from '../../utils/sendResponse';
-import { extractResumeInside, mockinterview } from '../../lib/gemini';
+import { extractResumeInside} from '../../lib/gemini';
 import multer from 'multer';
 // const upload = multer();
 
@@ -28,27 +28,7 @@ interface MulterRequest extends Request {
  * @route   GET /test-series
  * @desc     get all test series
  */
-const startInterview = asyncHandler(async (req: Request, res: Response) => {
-  try {
-    const { companyType, role } = req.body;
-    const history: { question: string; answer: string }[] = [];
 
-    const question = await mockinterview(companyType, role, history);
-    sendResponse(res, 200, 'All test series retrieved successfully', question);
-  } catch (error) {
-    throw new CustomError('Failed to start interview', 500);
-  }
-});
-
-const nextQuestion = asyncHandler(async (req: Request, res: Response) => {
-  try {
-    const { companyType, role, history } = req.body;
-    const question = await mockinterview(companyType, role, history);
-    sendResponse(res, 200, 'All test series retrieved successfully', question);
-  } catch (error) {
-    throw new CustomError('Failed to get next question', 500);
-  }
-});
 const textTospeech = asyncHandler(async (req: Request, res: Response) => {
   try {
     const { text } = req.body;
@@ -119,8 +99,7 @@ const extractResume = asyncHandler(async (req: MulterRequest, res: Response) => 
 });
 
 export const PublicController = {
-  startInterview,
-  nextQuestion,
+
   extractResume,
   textTospeech
 };
