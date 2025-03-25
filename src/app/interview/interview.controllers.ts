@@ -105,9 +105,13 @@ const extractResume = asyncHandler(async (req: MulterRequest, res: Response) => 
 
     // Process the resume file (e.g., save it, extract data, etc.)
     const resumeData = await extractResumeInside(resume.buffer);
-
+    console.log("the resueme data for the resume is:::", resumeData);
     // For now, let's just send a response back with the received data
-    sendResponse(res, 200, 'Resume received successfully', { companyType, role, resumeData });
+    res.status(200).json({
+      success: true,
+      message: 'Resume data extracted successfully',
+      data: resumeData
+    });
   } catch (error) {
     console.log(error);
     throw new CustomError('Internal server error', 500);
