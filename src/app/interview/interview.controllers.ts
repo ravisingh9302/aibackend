@@ -72,11 +72,10 @@ const extractResume = asyncHandler(async (req: MulterRequest, res: Response) => 
   console.log("hello")
   try {
 
-    const { companyType, role } = req.body
+  
 
-    console.log("fasfafas:::", req.body);
-    console.log("fasfafas:::", req.file);
-
+    // console.log("req.body", req.body);
+    console.log("req.file", req.file);
     const resume = req.file; // Assuming you're using a middleware like multer to handle file uploads
 
     if (!resume) {
@@ -85,8 +84,9 @@ const extractResume = asyncHandler(async (req: MulterRequest, res: Response) => 
 
     // Process the resume file (e.g., save it, extract data, etc.)
     const resumeData = await extractResumeInside(resume.buffer);
-    console.log("the resueme data for the resume is:::", resumeData);
-    // For now, let's just send a response back with the received data
+    if (resumeData) {
+     console.log("RESUME DATA EXTRACTED")
+    }
     res.status(200).json({
       success: true,
       message: 'Resume data extracted successfully',
@@ -99,7 +99,6 @@ const extractResume = asyncHandler(async (req: MulterRequest, res: Response) => 
 });
 
 export const PublicController = {
-
   extractResume,
   textTospeech
 };
